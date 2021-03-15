@@ -1,8 +1,8 @@
-import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer } from "react-navigation";
+import BSALoginWebview from "../screens/BsaLoginWebview";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
-import BSALoginWebview from "../screens/BsaLoginWebview";
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
 
 const createStackNavigatorOptions = {
   headerShown: false,
@@ -14,6 +14,10 @@ const AppNavigator = createStackNavigator(
     Register: { screen: Register },
     BSALoginWebview: {
       screen: BSALoginWebview,
+      navigationOptions: {
+        headerShown: true,
+        title: "BSA Login",
+      },
     },
   },
   {
