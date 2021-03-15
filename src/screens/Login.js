@@ -1,16 +1,26 @@
 import {
+  ActivityIndicator,
   Image,
+  Modal,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
+import React, { useState } from "react";
 
+import BSALoginWebview from "./BsaLoginWebview";
 import { MaterialIcons } from "@expo/vector-icons";
-import React from "react";
+import { WebView } from "react-native-webview";
 
 const Login = (props) => {
+  const [isBSALoginPressed, setIsBSALoginPressed] = useState(false);
+
+  const closeModal = () => {
+    setIsBSALoginPressed(false);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.introductionContainer}>
@@ -57,7 +67,8 @@ const Login = (props) => {
         <TouchableOpacity
           onPress={() => {
             console.log("Button Pressed");
-            props.navigation.navigate("BSALoginWebview");
+            // props.navigation.navigate("BSALoginWebview");
+            setIsBSALoginPressed(true);
           }}
         >
           <View style={styles.buttonContainer}>
@@ -65,11 +76,82 @@ const Login = (props) => {
           </View>
         </TouchableOpacity>
       </View>
+      <Modal
+        visible={isBSALoginPressed}
+        animationType="slide"
+        transparent={true}
+        // onRequestClose={this.close}
+      >
+        {/* <View style={{ marginTop: 100 }}>
+          <Text>HI There</Text>
+          <BSALoginWebview />
+        </View> */}
+        <View style={styles.modal}>
+          <View style={styles.modalContainer}>
+            <TouchableOpacity onPress={closeModal}>
+              <View
+                style={{
+                  height: "15%",
+                  backgroundColor: "rgba(52, 52, 52, alpha)",
+                }}
+              ></View>
+            </TouchableOpacity>
+            <View style={{ height: "90%" }}>
+              <View style={styles.popupBar}>
+                <MaterialIcons name="close" size={30} onPress={closeModal} />
+                <View
+                  style={{
+                    marginHorizontal: 20,
+                    justifyContent: "center",
+                    alignContent: "center",
+                    // borderWidth: 1,
+                  }}
+                >
+                  <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+                    BSA Authentication
+                  </Text>
+                </View>
+              </View>
+              <BSALoginWebview />
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  modal: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    // backgroundColor: "transparent",
+  },
+  modalContainer: {
+    // backgroundColor: "white",
+    width: "100%",
+
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    // shadowOffset: { width: 2, height: 5 },
+    // shadowColor: "black",
+    // shadowOpacity: 1,
+  },
+  popupBar: {
+    backgroundColor: "white",
+    flexDirection: "row",
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+    justifyContent: "flex-start",
+    alignContent: "center",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  ActivityIndicatorStyle: {
+    flex: 1,
+    justifyContent: "center",
+  },
   container: {
     backgroundColor: "#2196F3",
     height: "100%",
@@ -132,7 +214,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
     fontSize: 20,
-    borderWidth: 1,
+
     padding: 5,
     borderRadius: 15,
     borderWidth: 2,
