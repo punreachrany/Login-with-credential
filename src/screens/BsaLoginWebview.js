@@ -26,7 +26,7 @@ const BSALoginWebview = (props) => {
         onLoadStart={(syntheticEvent) => {
           setIsLoading(true);
         }}
-        onLoad={() => {
+        onLoadEnd={() => {
           setIsLoading(false);
         }}
       />
